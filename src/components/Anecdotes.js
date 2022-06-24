@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { voteAnecdote , initAnecdotes, addVote} from '../reducers/anecdoteReducer'
-import { setNotification, removeNotification, notify } from '../reducers/notificationReducer'
-import anecdoteService from '../services/anecdote'
+import {addVote} from '../reducers/anecdoteReducer'
+import { notify } from '../reducers/notificationReducer'
 
 const Anecdotes = (props) => {
 
@@ -19,7 +18,7 @@ const Anecdotes = (props) => {
   const vote = (id) => {
     const anecdote = anecdotes.find(n => n.id === id)
     dispatch(addVote(id))
-    dispatch(notify(`voted for ${anecdote}`, 5000))
+    dispatch(notify(`voted for ${anecdote.content}`, 5000))
   }
 
   return (

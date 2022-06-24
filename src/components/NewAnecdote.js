@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
 import {  notify } from '../reducers/notificationReducer'
-import anecdoteService from '../services/anecdote'
 
 const NewAnecdote = (props) => {
   const [anecdote, setAnecdote] = useState('')
