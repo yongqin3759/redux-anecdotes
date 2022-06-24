@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
-import {  removeNotification, setNotification } from '../reducers/notificationReducer'
+import {  notify } from '../reducers/notificationReducer'
 import anecdoteService from '../services/anecdote'
 
 const NewAnecdote = (props) => {
@@ -10,13 +10,8 @@ const NewAnecdote = (props) => {
 
   const handleAddAnecdote = async (e) => {
     e.preventDefault()
-    const newAnecdote = await anecdoteService.createNew(anecdote)
-    dispatch(addAnecdote(newAnecdote))
-    dispatch(setNotification('Anecdote Added'))
-    setTimeout(()=>{
-      dispatch(removeNotification())
-    }, 5000)
-    setAnecdote('')
+    dispatch(addAnecdote(anecdote))
+    dispatch(notify('Anecdote Added', 5000))
   }
 
   return (

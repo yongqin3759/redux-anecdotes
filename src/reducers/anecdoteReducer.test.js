@@ -33,13 +33,13 @@ describe('anecdoteReducer', () => {
     })
   })
 
-  test('add anecdote', ()=> {
+  test('push anecdote', ()=> {
     const state = []
 
     deepFreeze(state)
 
     const action = {
-      type: 'anecdotes/addAnecdote',
+      type: 'anecdotes/pushAnecdote',
       payload: {
         content: 'added anecdote',
         votes: 0,
@@ -52,13 +52,13 @@ describe('anecdoteReducer', () => {
     expect(newState.map(s=> s.content)).toContainEqual(action.payload.content)
   })
 
-  test('init anecdote', () => {
+  test('set anecdote', () => {
     const state = []
 
     deepFreeze(state)
 
     const action = {
-      type: 'anecdotes/initAnecdotes',
+      type: 'anecdotes/setAnecdotes',
       payload: [
           {
             "content": "If it hurts, do it more often",
