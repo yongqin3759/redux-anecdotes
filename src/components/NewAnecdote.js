@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
-import { notify, removeNotification, setNotification } from '../reducers/notificationReducer'
+import {  removeNotification, setNotification } from '../reducers/notificationReducer'
+import anecdoteService from '../services/anecdote'
 
 const NewAnecdote = (props) => {
   const [anecdote, setAnecdote] = useState('')
   const dispatch = useDispatch()
 
-  const handleAddAnecdote = (e) => {
+  const handleAddAnecdote = async (e) => {
     e.preventDefault()
-    dispatch(addAnecdote(anecdote))
+    const newAnecdote = await anecdoteService.createNew(anecdote)
+    dispatch(addAnecdote(newAnecdote))
     dispatch(setNotification('Anecdote Added'))
     setTimeout(()=>{
       dispatch(removeNotification())

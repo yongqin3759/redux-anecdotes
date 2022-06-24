@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { voteAnecdote } from '../reducers/anecdoteReducer'
+import { voteAnecdote , initAnecdotes} from '../reducers/anecdoteReducer'
 import { setNotification, removeNotification } from '../reducers/notificationReducer'
+import anecdoteService from '../services/anecdote'
 
 const Anecdotes = (props) => {
+
   const anecdotes = useSelector(state => {
     const filter = state.filter.toLowerCase()
     if(filter === ''){
@@ -14,6 +16,13 @@ const Anecdotes = (props) => {
   })
   const dispatch = useDispatch()
   
+  useEffect(() => {
+    async function init(){
+      const initialAnecdotes = await anecdoteService.getAll()
+      dispatch(initAnecdotes(initialAnecdotes))
+    }
+    init()
+  }, [dispatch])
   const vote = (id) => {
     dispatch(voteAnecdote(id))
     const anecdote = anecdotes.find(n => n.id === id)
