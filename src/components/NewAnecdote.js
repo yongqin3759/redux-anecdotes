@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
 import {  notify } from '../reducers/notificationReducer'
 
 const NewAnecdote = (props) => {
   const [anecdote, setAnecdote] = useState('')
-  const dispatch = useDispatch()
 
   const handleAddAnecdote = async (e) => {
     e.preventDefault()
-    dispatch(addAnecdote(anecdote))
-    dispatch(notify('Anecdote Added', 5000))
+    props.addAnecdote(anecdote)
+    props.notify('Anecdote Added', 5000)
   }
 
   return (
@@ -31,4 +30,4 @@ const NewAnecdote = (props) => {
   )
 }
 
-export default NewAnecdote
+export default connect(null, {addAnecdote, notify})(NewAnecdote)

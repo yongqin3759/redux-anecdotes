@@ -8,7 +8,7 @@ const Anecdotes = (props) => {
   const anecdotes = useSelector(state => {
     const filter = state.filter.toLowerCase()
     if(filter === ''){
-      return state.anecdotes
+      return [...state.anecdotes].sort((a,b)=> (b.votes-a.votes))
     }else{
       return state.anecdotes.filter(n => n.content.toLowerCase().includes(filter))
     }
